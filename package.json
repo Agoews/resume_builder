@@ -7,16 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:latest",
-    "db:migrate:undo": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:down",
-    "db:migrate:make": "TS_NODE_COMPILER_OPTIONS='{ \"module\": \"commonjs\" }' knex migrate:make",
-    "vercel-build": "prisma generate && pnpm db:migrate && next build"
+    "prisma:migrate": "ENV_PATH=.env.development.local prisma migrate dev"
   },
   "dependencies": {
     "@prisma/client": "5.2.0",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
+    "@vercel/postgres": "^0.4.1",
     "autoprefixer": "10.4.15",
     "dotenv": "^16.3.1",
     "eslint": "8.47.0",

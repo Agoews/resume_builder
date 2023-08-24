@@ -1,0 +1,74 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model Resume {
+  id                String                   @id @default(cuid())
+  user              User                     @relation(fields: [userId], references: [id])
+  userId            String                   @unique
+  technicalSkills   TechnicalSkills?
+  softwareApps      SoftwareApp[]
+  professionalExp   ProfessionalExperience[]
+  education         Education[]
+}
+
+model TechnicalSkills {
+  id         String   @id @default(cuid())
+  frontend   String
+  backend    String
+  testDeploy String
+  devTools   String
+  resume     Resume   @relation(fields: [resumeId], references: [id])
+  resumeId   String   @unique
+}
+
+model SoftwareApp {
+  id           String @id @default(cuid())
+  resume       Resume @relation(fields: [resumeId], references: [id])
+  resumeId     String
+  name         String
+  technologies String
+  year         Int
+  description  String
+}
+
+model ProfessionalExperience {
+  id          String   @id @default(cuid())
+  resume      Resume   @relation(fields: [resumeId], references: [id])
+  resumeId    String
+  position    String
+  company     String
+  startDate   DateTime
+  endDate     DateTime
+  description String
+}
+
+model Education {
+  id       String @id @default(cuid())
+  resume   Resume @relation(fields: [resumeId], references: [id])
+  resumeId String
+  school   String
+  degree   String
+  year     Int
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  address   String
+  linkedin  String
+  github    String
+  website   String
+  email     String   @unique
+  phone     String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  resume    Resume?
+}
