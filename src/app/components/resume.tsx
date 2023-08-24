@@ -1,7 +1,7 @@
 export default function Resume() {
   return (
     <div>
-      <div className="m-auto bg-white w-[80vw] h-[90vh] border p-4">
+      <div >
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-2xl font-bold mb-2">Name</h1>
           <sub className="block mb-4">Contact Info</sub>
