@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+import prisma from "../../lib/prisma";
 import Resume from "./components/resume";
-import Inputs from "./components/inputs";
+import Inputs from "./components/resume_form";
 
 export default function Home() {
   const [toggleInputs, setToggleInputs] = useState(true);
