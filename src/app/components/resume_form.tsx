@@ -72,7 +72,7 @@ export default function ResumeForm() {
 
   type EducationKey = keyof EducationType;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
     // Logic to handle submission, such as sending data to the server
   };
@@ -131,8 +131,15 @@ export default function ResumeForm() {
     setEducation([...education, { school: "", degree: "", year: "" }]);
   };
 
-  type UserKey = 'name' | 'address' | 'linkedin' | 'github' | 'website' | 'email' | 'phone';
-  type TechnicalSkillsKey = 'frontend' | 'backend' | 'testDeploy' | 'devTools';
+  type UserKey =
+    | "name"
+    | "address"
+    | "linkedin"
+    | "github"
+    | "website"
+    | "email"
+    | "phone";
+  type TechnicalSkillsKey = "frontend" | "backend" | "testDeploy" | "devTools";
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
@@ -140,41 +147,51 @@ export default function ResumeForm() {
         <h3 className="text-xl font-bold mb-2">Name and Contact Information</h3>
         {/* User Contact Information */}
         {[
-          ['name', 'Name'],
-          ['address', 'Address'],
-          ['email', 'Email'],
-          ['phone', 'Phone #'],
-          ['linkedin', 'LinkedIn'],
-          ['github', 'GitHub'],
-          ['website', 'Other Website'],
+          ["name", "Name"],
+          ["address", "Address"],
+          ["email", "Email"],
+          ["phone", "Phone #"],
+          ["linkedin", "LinkedIn"],
+          ["github", "GitHub"],
+          ["website", "Other Website"],
         ].map(([key, placeholder]) => (
           <input
-          key={key}
-          type="text"
-          value={user[key as UserKey]} // Casting the key as UserKey
-          onChange={(e) => setUser({ ...user, [key as UserKey]: e.target.value })} // Casting the key as UserKey
-          placeholder={placeholder}
-          className="mb-2 p-2 w-full border rounded"
-        />
+            key={key}
+            type="text"
+            value={user[key as UserKey]} // Casting the key as UserKey
+            onChange={(e) =>
+              setUser({ ...user, [key as UserKey]: e.target.value })
+            } // Casting the key as UserKey
+            placeholder={placeholder}
+            className="mb-2 p-2 w-full border rounded"
+          />
         ))}
       </div>
       <div className="mb-6">
         {/* Technical Skills */}
         <h3 className="text-xl font-bold mb-2">Technical Skills</h3>
         {[
-          ['frontend', 'Frontend Skills'],
-          ['backend', 'Backend Skills'],
-          ['testDeploy', 'Test & Deployment Tools (e.g. Jest, K6, CI/CD, AWS, etc)'],
-          ['devTools', 'Dev Tools (e.g. VSCode, Next.JS, etc.)'],
+          ["frontend", "Frontend Skills"],
+          ["backend", "Backend Skills"],
+          [
+            "testDeploy",
+            "Test & Deployment Tools (e.g. Jest, K6, CI/CD, AWS, etc)",
+          ],
+          ["devTools", "Dev Tools (e.g. VSCode, Next.JS, etc.)"],
         ].map(([key, placeholder]) => (
           <input
-          key={key}
-          type="text"
-          value={technicalSkills[key as TechnicalSkillsKey]} // Casting the key as TechnicalSkillsKey
-          onChange={(e) => setTechnicalSkills({ ...technicalSkills, [key as TechnicalSkillsKey]: e.target.value })} // Casting the key as TechnicalSkillsKey
-          placeholder={placeholder}
-          className="mb-2 p-2 w-full border rounded"
-        />
+            key={key}
+            type="text"
+            value={technicalSkills[key as TechnicalSkillsKey]} // Casting the key as TechnicalSkillsKey
+            onChange={(e) =>
+              setTechnicalSkills({
+                ...technicalSkills,
+                [key as TechnicalSkillsKey]: e.target.value,
+              })
+            } // Casting the key as TechnicalSkillsKey
+            placeholder={placeholder}
+            className="mb-2 p-2 w-full border rounded"
+          />
         ))}
       </div>
       <div className="mb-6">
@@ -183,85 +200,119 @@ export default function ResumeForm() {
         {softwareApps.map((softwareApp, index) => (
           <div key={index} className="mb-2">
             {[
-              ['name', 'Software Name'],
-              ['technologies', 'Technologies'],
-              ['year', 'Year'],
-              ['description', 'Description'],
+              ["name", "Software Name"],
+              ["technologies", "Technologies"],
+              ["year", "Year"],
+              ["description", "Description"],
             ].map(([key, placeholder]) => (
               <input
                 key={key}
-                type={key === 'year' ? 'number' : 'text'}
+                type={key === "year" ? "number" : "text"}
                 value={softwareApp[key as SoftwareAppKey]}
-                onChange={(e) => handleSoftwareAppChange(index, key as SoftwareAppKey, e.target.value)}
+                onChange={(e) =>
+                  handleSoftwareAppChange(
+                    index,
+                    key as SoftwareAppKey,
+                    e.target.value
+                  )
+                }
                 placeholder={placeholder}
                 className="mb-2 p-2 w-full border rounded"
               />
             ))}
           </div>
         ))}
-        <button type="button" onClick={addSoftwareApp} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <button
+          type="button"
+          onClick={addSoftwareApp}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
           Add More Software Apps
         </button>
       </div>
 
       <div className="mb-6">
-      <h3 className="text-xl font-bold mb-2">Non Software Professional Experience</h3>
-      {/* Non Software Professional Experience */}
-      {professionalExperience.map((experience, index) => (
-        <div key={index} className="mb-2">
-          {[
-            ['position', 'Position'],
-            ['company', 'Company Name'],
-            ['startDate', 'Start Date'],
-            ['endDate', 'End Date'],
-            ['description', 'Description'],
-          ].map(([key, placeholder]) => (
-            <input
-              key={key}
-              type={key === 'startDate' || key === 'endDate' ? 'number' : 'text'}
-              value={experience[key as ProfessionalExperienceKey]}
-              onChange={(e) => handleProfessionalExperience(index, key as ProfessionalExperienceKey, e.target.value)}
-              placeholder={placeholder}
-              className="mb-2 p-2 w-full border rounded"
-            />
-          ))}
-        </div>
-      ))}
-      <button type="button" onClick={addProfessionalExperience} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Add More Experience
+        <h3 className="text-xl font-bold mb-2">
+          Non Software Professional Experience
+        </h3>
+        {/* Non Software Professional Experience */}
+        {professionalExperience.map((experience, index) => (
+          <div key={index} className="mb-2">
+            {[
+              ["position", "Position"],
+              ["company", "Company Name"],
+              ["startDate", "Start Date"],
+              ["endDate", "End Date"],
+              ["description", "Description"],
+            ].map(([key, placeholder]) => (
+              <input
+                key={key}
+                type={
+                  key === "startDate" || key === "endDate" ? "number" : "text"
+                }
+                value={experience[key as ProfessionalExperienceKey]}
+                onChange={(e) =>
+                  handleProfessionalExperience(
+                    index,
+                    key as ProfessionalExperienceKey,
+                    e.target.value
+                  )
+                }
+                placeholder={placeholder}
+                className="mb-2 p-2 w-full border rounded"
+              />
+            ))}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addProfessionalExperience}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add More Experience
+        </button>
+      </div>
+      <div className="mb-6">
+        <h3 className="text-xl font-bold mb-2">Education & Certificates</h3>
+        {/* Education & Certificates */}
+        {education.map((edu, index) => (
+          <div key={index} className="mb-2">
+            {[
+              ["school", "School"],
+              ["degree", "Degree/Certificate"],
+              ["year", "Graduation Year"],
+            ].map(([key, placeholder]) => (
+              <input
+                key={key}
+                type="text"
+                value={edu[key as EducationKey]}
+                onChange={(e) =>
+                  handleEducationChange(
+                    index,
+                    key as EducationKey,
+                    e.target.value
+                  )
+                }
+                placeholder={placeholder}
+                className="mb-2 p-2 w-full border rounded"
+              />
+            ))}
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={addEducation}
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Add More Education
+        </button>
+      </div>
+      <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Submit
       </button>
-    </div>
-    <div className="mb-6">
-      <h3 className="text-xl font-bold mb-2">Education & Certificates</h3>
-      {/* Education & Certificates */}
-      {education.map((edu, index) => (
-        <div key={index} className="mb-2">
-          {[
-            ['school', 'School'],
-            ['degree', 'Degree/Certificate'],
-            ['year', 'Graduation Year'],
-          ].map(([key, placeholder]) => (
-            <input
-              key={key}
-              type="text"
-              value={edu[key as EducationKey]}
-              onChange={(e) => handleEducationChange(index, key as EducationKey, e.target.value)}
-              placeholder={placeholder}
-              className="mb-2 p-2 w-full border rounded"
-            />
-          ))}
-        </div>
-      ))}
-      <button type="button" onClick={addEducation} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Add More Education
-      </button>
-    </div>
-    <button
-      type="submit"
-      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    >
-      Submit
-    </button>
     </form>
   );
 }
