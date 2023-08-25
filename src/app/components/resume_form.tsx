@@ -1,4 +1,4 @@
-import { SoftwareApp } from "@prisma/client";
+// import { SoftwareApp } from "@prisma/client";
 import React, { useState } from "react";
 
 export default function ResumeForm() {
