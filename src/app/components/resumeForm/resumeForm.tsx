@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import NameAndContact from "./components/nameAndContact";
 import TechnicalSkills from "./components/technicalSkills";
 import SoftwareApps from "./components/softwareApps";
+import Education from "./components/education";
+import ProfessionalExperience from "./components/professionalExperience";
 
 export default function ResumeForm() {
   const [user, setUser] = useState({
@@ -157,119 +159,17 @@ export default function ResumeForm() {
         handleSoftwareAppChange={handleSoftwareAppChange}
         addSoftwareApp={addSoftwareApp}
       />
-      <div className="mb-6">
-        {/* Software Applications */}
-        <h3 className="text-xl font-bold mb-2">Software Applications</h3>
-        {softwareApps.map((softwareApp, index) => (
-          <div key={index} className="mb-2">
-            {[
-              ["name", "Software Name"],
-              ["technologies", "Technologies"],
-              ["year", "Year"],
-              ["description", "Description"],
-            ].map(([key, placeholder]) => (
-              <input
-                key={key}
-                type={key === "year" ? "number" : "text"}
-                value={softwareApp[key as SoftwareAppKey]}
-                onChange={(e) =>
-                  handleSoftwareAppChange(
-                    index,
-                    key as SoftwareAppKey,
-                    e.target.value
-                  )
-                }
-                placeholder={placeholder}
-                className="mb-2 p-2 w-full border rounded"
-              />
-            ))}
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={addSoftwareApp}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Add More Software Apps
-        </button>
-      </div>
+      <ProfessionalExperience
+        professionalExperience={professionalExperience}
+        handleProfessionalExperience={handleProfessionalExperience}
+        addProfessionalExperience={addProfessionalExperience}
+      />
 
-      <div className="mb-6">
-        <h3 className="text-xl font-bold mb-2">
-          Non Software Professional Experience
-        </h3>
-        {/* Non Software Professional Experience */}
-        {professionalExperience.map((experience, index) => (
-          <div key={index} className="mb-2">
-            {[
-              ["position", "Position"],
-              ["company", "Company Name"],
-              ["startDate", "Start Date"],
-              ["endDate", "End Date"],
-              ["description", "Description"],
-            ].map(([key, placeholder]) => (
-              <input
-                key={key}
-                type={
-                  key === "startDate" || key === "endDate" ? "number" : "text"
-                }
-                value={experience[key as ProfessionalExperienceKey]}
-                onChange={(e) =>
-                  handleProfessionalExperience(
-                    index,
-                    key as ProfessionalExperienceKey,
-                    e.target.value
-                  )
-                }
-                placeholder={placeholder}
-                className="mb-2 p-2 w-full border rounded"
-              />
-            ))}
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={addProfessionalExperience}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Add More Experience
-        </button>
-      </div>
-      <div className="mb-6">
-        <h3 className="text-xl font-bold mb-2">Education & Certificates</h3>
-        {/* Education & Certificates */}
-        {education.map((edu, index) => (
-          <div key={index} className="mb-2">
-            {[
-              ["school", "School"],
-              ["degree", "Degree/Certificate"],
-              ["year", "Graduation Year"],
-            ].map(([key, placeholder]) => (
-              <input
-                key={key}
-                type="text"
-                value={edu[key as EducationKey]}
-                onChange={(e) =>
-                  handleEducationChange(
-                    index,
-                    key as EducationKey,
-                    e.target.value
-                  )
-                }
-                placeholder={placeholder}
-                className="mb-2 p-2 w-full border rounded"
-              />
-            ))}
-          </div>
-        ))}
-        <button
-          type="button"
-          onClick={addEducation}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Add More Education
-        </button>
-      </div>
+      <Education
+        education={education}
+        handleEducationChange={handleEducationChange}
+        addEducation={addEducation}
+      />
       <button
         type="submit"
         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
