@@ -1,5 +1,8 @@
 // import { SoftwareApp } from "@prisma/client";
 import React, { useState } from "react";
+import NameAndContact from "./components/nameAndContact";
+import TechnicalSkills from "./components/technicalSkills";
+import SoftwareApps from "./components/softwareApps";
 
 export default function ResumeForm() {
   const [user, setUser] = useState({
@@ -131,69 +134,29 @@ export default function ResumeForm() {
     setEducation([...education, { school: "", degree: "", year: "" }]);
   };
 
-  type UserKey =
-    | "name"
-    | "address"
-    | "linkedin"
-    | "github"
-    | "website"
-    | "email"
-    | "phone";
-  type TechnicalSkillsKey = "frontend" | "backend" | "testDeploy" | "devTools";
+  // type UserKey =
+  //   | "name"
+  //   | "address"
+  //   | "linkedin"
+  //   | "github"
+  //   | "website"
+  //   | "email"
+  //   | "phone";
+  // type TechnicalSkillsKey = "frontend" | "backend" | "testDeploy" | "devTools";
 
   return (
     <form onSubmit={handleSubmit} className="p-4">
-      <div className="mb-6">
-        <h3 className="text-xl font-bold mb-2">Name and Contact Information</h3>
-        {/* User Contact Information */}
-        {[
-          ["name", "Name"],
-          ["address", "Address"],
-          ["email", "Email"],
-          ["phone", "Phone #"],
-          ["linkedin", "LinkedIn"],
-          ["github", "GitHub"],
-          ["website", "Other Website"],
-        ].map(([key, placeholder]) => (
-          <input
-            key={key}
-            type="text"
-            value={user[key as UserKey]} // Casting the key as UserKey
-            onChange={(e) =>
-              setUser({ ...user, [key as UserKey]: e.target.value })
-            } // Casting the key as UserKey
-            placeholder={placeholder}
-            className="mb-2 p-2 w-full border rounded"
-          />
-        ))}
-      </div>
-      <div className="mb-6">
-        {/* Technical Skills */}
-        <h3 className="text-xl font-bold mb-2">Technical Skills</h3>
-        {[
-          ["frontend", "Frontend Skills"],
-          ["backend", "Backend Skills"],
-          [
-            "testDeploy",
-            "Test & Deployment Tools (e.g. Jest, K6, CI/CD, AWS, etc)",
-          ],
-          ["devTools", "Dev Tools (e.g. VSCode, Next.JS, etc.)"],
-        ].map(([key, placeholder]) => (
-          <input
-            key={key}
-            type="text"
-            value={technicalSkills[key as TechnicalSkillsKey]} // Casting the key as TechnicalSkillsKey
-            onChange={(e) =>
-              setTechnicalSkills({
-                ...technicalSkills,
-                [key as TechnicalSkillsKey]: e.target.value,
-              })
-            } // Casting the key as TechnicalSkillsKey
-            placeholder={placeholder}
-            className="mb-2 p-2 w-full border rounded"
-          />
-        ))}
-      </div>
+      <NameAndContact user={user} setUser={setUser} />
+      <TechnicalSkills
+        technicalSkills={technicalSkills}
+        setTechnicalSkills={setTechnicalSkills}
+      />
+      <SoftwareApps
+        softwareApps={softwareApps}
+        setSoftwareApps={setSoftwareApps}
+        handleSoftwareAppChange={handleSoftwareAppChange}
+        addSoftwareApp={addSoftwareApp}
+      />
       <div className="mb-6">
         {/* Software Applications */}
         <h3 className="text-xl font-bold mb-2">Software Applications</h3>
