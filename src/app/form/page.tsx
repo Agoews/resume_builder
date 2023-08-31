@@ -13,7 +13,7 @@ const FormPage = () => {
         <Link href="/form/software-apps" className="w-full min-w-[280px] h-12 bg-blue-400 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded">
           Edit Software Apps
         </Link>
-        <Link href="/form/non-software-experience" className="w-full min-w-[280px] h-12 bg-blue-400 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded">
+        <Link href="/form/non-software-exp" className="w-full min-w-[280px] h-12 bg-blue-400 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded">
           Edit Non-Software Experience
         </Link>
         <Link href="/form/education" className="w-full min-w-[280px] h-12 bg-blue-400 hover:bg-blue-300 text-white font-bold py-2 px-4 rounded">
