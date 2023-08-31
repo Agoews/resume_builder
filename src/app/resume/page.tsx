@@ -1,7 +1,8 @@
-export default function Resume() {
+
+const ResumePage = () => {
   return (
     <div>
-      <div >
+      <div>
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-2xl font-bold mb-2">Name</h1>
           <sub className="block mb-4">Contact Info</sub>
@@ -123,4 +124,6 @@ export default function Resume() {
       </div>
     </div>
   );
-}
+};
+
+export default ResumePage;
