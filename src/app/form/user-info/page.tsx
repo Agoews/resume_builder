@@ -2,7 +2,18 @@
 
 import React from "react";
 import Link from "next/link";
-import { UserKey } from "@/app/components/resumeForm/components/types";
+
+type NameAndContactType = {
+  name: string;
+  email: string;
+  linkedin: string;
+  github: string;
+  website: string;
+  address: string;
+  phone: string;
+}
+
+type UserKey = keyof NameAndContactType
 
 type NameAndContactProps = {
   user: {

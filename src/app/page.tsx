@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import prisma from "../../lib/prisma";
-import Form from "./components/resumeForm/resumeForm";
 
 export default function Home() {
   return (

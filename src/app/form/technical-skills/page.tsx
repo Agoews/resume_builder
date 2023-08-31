@@ -1,11 +1,16 @@
 "use client";
 
 import React from "react";
-import {
-  TechnicalSkillsKey,
-  TechnicalSkillsType,
-} from "@/app/components/resumeForm/components/types";
 import Link from "next/link";
+
+type TechnicalSkillsType = {
+  frontend: string;
+  backend: string;
+  testDeploy: string;
+  devTools: string;
+}
+
+type TechnicalSkillsKey = keyof TechnicalSkillsType
 
 type TechnicalSkillsProps = {
   technicalSkills: TechnicalSkillsType;
