@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 type NameAndContactType = {
@@ -11,23 +11,27 @@ type NameAndContactType = {
   website: string;
   address: string;
   phone: string;
-}
+};
 
-type UserKey = keyof NameAndContactType
+const NameAndContact: React.FC = () => {
+  // Initialize local state
+  const [user, setUser] = useState<NameAndContactType>({
+    name: "",
+    email: "",
+    linkedin: "",
+    github: "",
+    website: "",
+    address: "",
+    phone: "",
+  });
 
-type NameAndContactProps = {
-  user: {
-    [key in UserKey]: string;
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Logic for handling the submission can go here
+    // For this example, let's log the user data to the console
+    console.log("Submitted Data:", user);
   };
-  setUser: React.Dispatch<React.SetStateAction<{ [key in UserKey]: string }>>;
-};
 
-const handleSubmit = (e: { preventDefault: () => void }) => {
-  e.preventDefault();
-  // Logic to handle submission, such as sending data to the server
-};
-
-const NameAndContact: React.FC<NameAndContactProps> = ({ user, setUser }) => {
   return (
     <form onSubmit={handleSubmit} className="p-4">
       <div className="mb-6">
@@ -44,11 +48,14 @@ const NameAndContact: React.FC<NameAndContactProps> = ({ user, setUser }) => {
               <input
                 key={key}
                 type="text"
-                value={user?.[key as UserKey] ?? ""}
+                value={user[key as keyof NameAndContactType] ?? ""}
                 onChange={(e) =>
-                  setUser({ ...user, [key as UserKey]: e.target.value })
+                  setUser({
+                    ...user,
+                    [key as keyof NameAndContactType]: e.target.value,
+                  })
                 }
-                placeholder={placeholder}
+                placeholder={placeholder as string}
                 className="mb-2 p-2 w-full border rounded"
               />
             ))}
@@ -64,11 +71,14 @@ const NameAndContact: React.FC<NameAndContactProps> = ({ user, setUser }) => {
               <input
                 key={key}
                 type="text"
-                value={user?.[key as UserKey] ?? ""}
+                value={user[key as keyof NameAndContactType] ?? ""}
                 onChange={(e) =>
-                  setUser({ ...user, [key as UserKey]: e.target.value })
+                  setUser({
+                    ...user,
+                    [key as keyof NameAndContactType]: e.target.value,
+                  })
                 }
-                placeholder={placeholder}
+                placeholder={placeholder as string}
                 className="mb-2 p-2 w-full border rounded"
               />
             ))}

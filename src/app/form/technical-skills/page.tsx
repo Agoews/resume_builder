@@ -1,31 +1,29 @@
-"use client";
+"use client"
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
-type TechnicalSkillsType = {
-  frontend: string;
-  backend: string;
-  testDeploy: string;
-  devTools: string;
-}
+const TechnicalSkills: React.FC = () => {
+  // Manage state locally
+  const [technicalSkills, setTechnicalSkills] = useState({
+    frontend: "",
+    backend: "",
+    testDeploy: "",
+    devTools: "",
+  });
 
-type TechnicalSkillsKey = keyof TechnicalSkillsType
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Logic to handle submission, such as sending data to the server
+  };
 
-type TechnicalSkillsProps = {
-  technicalSkills: TechnicalSkillsType;
-  setTechnicalSkills: React.Dispatch<React.SetStateAction<TechnicalSkillsType>>;
-};
+  const handleChange = (key: string, value: string) => {
+    setTechnicalSkills({
+      ...technicalSkills,
+      [key]: value,
+    });
+  };
 
-const handleSubmit = (e: { preventDefault: () => void }) => {
-  e.preventDefault();
-  // Logic to handle submission, such as sending data to the server
-};
-
-const TechnicalSkills: React.FC<TechnicalSkillsProps> = ({
-  technicalSkills,
-  setTechnicalSkills,
-}) => {
   return (
     <form onSubmit={handleSubmit} className="p-4">
       <div className="mb-6">
@@ -37,16 +35,11 @@ const TechnicalSkills: React.FC<TechnicalSkillsProps> = ({
           ["devTools", "Dev Tools"],
         ].map(([key, placeholder]) => (
           <input
-            key={key as string}
+            key={key}
             type="text"
-            value={technicalSkills?.[key as TechnicalSkillsKey] ?? ""}
-            onChange={(e) =>
-              setTechnicalSkills({
-                ...technicalSkills,
-                [key as TechnicalSkillsKey]: e.target.value,
-              })
-            }
-            placeholder={placeholder as string}
+            value={technicalSkills[key as keyof typeof technicalSkills] || ""}
+            onChange={(e) => handleChange(key, e.target.value)}
+            placeholder={placeholder}
             className="mb-2 p-2 w-full border rounded"
           />
         ))}
